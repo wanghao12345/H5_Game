@@ -12,7 +12,7 @@ define([], function () {
         start: function () {
             // this.init();
             this.drawTank();
-
+            this.launchBullet();
         },
         /**
          * 初始化DOM元素
@@ -31,110 +31,24 @@ define([], function () {
         drawTank: function () {
             var myTank = document.getElementById("myTank");
             var myTankTx = myTank.getContext("2d");
-            myTankTx.clearRect(this.Tank_X, this.Tank_y, 50, 50);
+            var img = document.getElementById("tulip");
+            myTankTx.clearRect(this.Tank_X, this.Tank_y, 30, 30);
             switch (this.Tank_direction) {
                 //上
                 case 'top':
-                    this.drawTopTank(myTankTx);
+                    myTankTx.drawImage(img, 0, 0, 30, 30, this.Tank_X, this.Tank_y, 30, 30);
                     break;
                 case 'left':
-                    this.drawLeftTank(myTankTx);
+                    myTankTx.drawImage(img, 62, 0, 30, 30, this.Tank_X, this.Tank_y, 30, 30);
                     break;
                 case 'right':
-                    this.drawRightTank(myTankTx);
+                    myTankTx.drawImage(img, 94, 0, 30, 30, this.Tank_X, this.Tank_y, 30, 30);
                     break;
                 case 'bottom':
-                    this.drawBottomTank(myTankTx);
+                    myTankTx.drawImage(img, 30, 0, 30, 30, this.Tank_X, this.Tank_y, 30, 30);
                     break;
             }
             this.bindEvent(myTankTx);
-
-        },
-        /**
-         * 坦克向上
-         * @param myTankTx
-         */
-        drawTopTank: function (myTankTx) {
-            // myTankTx.fillStyle = "#542174";
-            // myTankTx.fillRect(this.Tank_X, this.Tank_y, 13, 50); //左轮
-            // myTankTx.fillRect(this.Tank_X + 37, this.Tank_y, 13, 50); //右轮
-            // myTankTx.fillRect(this.Tank_X + 15, this.Tank_y + 10, 20, 30); // 炮塔底座
-            // myTankTx.fillStyle = "#FCB827";
-            // myTankTx.beginPath();
-            // myTankTx.arc(50 / 2 + this.Tank_X, 50 / 2 + this.Tank_y, 6, 2 * Math.PI, false);
-            // myTankTx.closePath();
-            // myTankTx.fill();
-            // myTankTx.strokeStyle = "#FCB827";
-            // myTankTx.lineWidth = "6.0";
-            // myTankTx.moveTo(50 / 2 + this.Tank_X, 50 / 2 + this.Tank_y);
-            // myTankTx.lineTo(50 / 2 + this.Tank_X, this.Tank_y);
-            // myTankTx.stroke();
-
-            var img=document.getElementById("tulip");
-            myTankTx.drawImage(img,10,10);
-
-
-
-        },
-        /**
-         * 坦克向下
-         * @param myTankTx
-         */
-        drawBottomTank: function (myTankTx) {
-            myTankTx.fillStyle = "#542174";
-            myTankTx.fillRect(this.Tank_X, this.Tank_y, 13, 50); //左轮
-            myTankTx.fillRect(this.Tank_X + 37, this.Tank_y, 13, 50); //右轮
-            myTankTx.fillRect(this.Tank_X + 15, this.Tank_y + 10, 20, 30); // 炮塔底座
-            myTankTx.fillStyle = "#FCB827";
-            myTankTx.beginPath();
-            myTankTx.arc(50 / 2 + this.Tank_X, 50 / 2 + this.Tank_y, 6, 2 * Math.PI, false);
-            myTankTx.closePath();
-            myTankTx.fill();
-            myTankTx.strokeStyle = "#FCB827";
-            myTankTx.lineWidth = "6.0";
-            myTankTx.moveTo(50 / 2 + this.Tank_X, 50 / 2 + this.Tank_y);
-            myTankTx.lineTo(50 / 2 + this.Tank_X, this.Tank_y + 50);
-            myTankTx.stroke();
-        },
-        /**
-         * 坦克向左
-         * @param myTankTx
-         */
-        drawLeftTank: function (myTankTx) {
-            myTankTx.fillStyle = "#542174";
-            myTankTx.fillRect(this.Tank_X, this.Tank_y, 50, 13); //左轮
-            myTankTx.fillRect(this.Tank_X, this.Tank_y + 37, 50, 13); //右轮
-            myTankTx.fillRect(this.Tank_X + 10, this.Tank_y + 15, 30, 20); // 炮塔底座
-            myTankTx.fillStyle = "#FCB827";
-            myTankTx.beginPath();
-            myTankTx.arc(50 / 2 + this.Tank_X, 50 / 2 + this.Tank_y, 6, 2 * Math.PI, false);
-            myTankTx.closePath();
-            myTankTx.fill();
-            myTankTx.strokeStyle = "#FCB827";
-            myTankTx.lineWidth = "6.0";
-            myTankTx.moveTo(50 / 2 + this.Tank_X, 50 / 2 + this.Tank_y);
-            myTankTx.lineTo(this.Tank_X, this.Tank_y + 50 / 2);
-            myTankTx.stroke();
-        },
-        /**
-         * 坦克向右
-         * @param myTankTx
-         */
-        drawRightTank: function (myTankTx) {
-            myTankTx.fillStyle = "#542174";
-            myTankTx.fillRect(this.Tank_X, this.Tank_y, 50, 13); //左轮
-            myTankTx.fillRect(this.Tank_X, this.Tank_y + 37, 50, 13); //右轮
-            myTankTx.fillRect(this.Tank_X + 10, this.Tank_y + 15, 30, 20); // 炮塔底座
-            myTankTx.fillStyle = "#FCB827";
-            myTankTx.beginPath();
-            myTankTx.arc(50 / 2 + this.Tank_X, 50 / 2 + this.Tank_y, 6, 2 * Math.PI, false);
-            myTankTx.closePath();
-            myTankTx.fill();
-            myTankTx.strokeStyle = "#FCB827";
-            myTankTx.lineWidth = "6.0";
-            myTankTx.moveTo(50 / 2 + this.Tank_X, 50 / 2 + this.Tank_y);
-            myTankTx.lineTo(this.Tank_X + 50, this.Tank_y + 50 / 2);
-            myTankTx.stroke();
         },
         /**
          * 绑定事件
@@ -202,34 +116,33 @@ define([], function () {
          * 发射子弹
          */
         launchBullet: function () {
+            var myBullet = document.getElementById("myBullet");
+            var myBulletTx = myBullet.getContext("2d");
+            var img = document.getElementById("tulip");
+            myBulletTx.clearRect(this.Bullet_X,this.Bullet_y, 5, 7);
             switch (this.Tank_direction) {
                 case "top":
-                    this.Bullet_X = this.Tank_X + (50 / 2);
+                    this.Bullet_X = this.Tank_X + (30 / 2);
                     this.Bullet_y = this.Tank_y;
+                    myBulletTx.drawImage(img, 81, 95, 5, 7, this.Bullet_X, this.Bullet_y, 5, 7);
                     break;
                 case "left":
+                    this.Bullet_X = this.Tank_X;
+                    this.Bullet_y = this.Tank_y + (30/2) - 2;
+                    myBulletTx.drawImage(img, 91, 95, 7, 7, this.Bullet_X, this.Bullet_y, 7, 7);
                     break;
                 case "right":
+                    this.Bullet_X = this.Tank_X + 30;
+                    this.Bullet_y = this.Tank_y + (30/2) -2;
+                    myBulletTx.drawImage(img, 97, 95, 7, 7, this.Bullet_X, this.Bullet_y, 7, 7);
                     break;
                 case "bottom":
+                    this.Bullet_X = this.Tank_X + (30 / 2) + 1;
+                    this.Bullet_y = this.Tank_y + 30;
+                    myBulletTx.drawImage(img, 86, 95, 5, 7, this.Bullet_X, this.Bullet_y, 5, 7);
                     break;
             }
 
-            var c = document.getElementById("myTank");
-            var ctx = c.getContext("2d");
-            this.drawBullet(this.Bullet_X, this.Bullet_y, ctx);
-        },
-        /**
-         * 画子弹
-         */
-        drawBullet: function (x, y, ctx) {
-            ctx.beginPath();
-            ctx.lineWidth = "1.0";
-            ctx.fillStyle = "#FCB827";
-            ctx.arc(x, y, 2, 0, 2 * Math.PI);
-            ctx.fill();
-            ctx.stroke();
-            this.bulletMove(ctx);
         },
         /**
          * 子弹移动
@@ -259,8 +172,6 @@ define([], function () {
                 ctx.clearRect(_X - 3, _y - 3, 6, 6);
                 this.drawBullet(this.Bullet_X, this.Bullet_y, ctx);
             }.bind(this), 1000);
-
-
 
 
         }
