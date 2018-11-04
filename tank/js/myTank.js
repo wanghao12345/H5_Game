@@ -119,7 +119,7 @@ define([], function () {
             var myBullet = document.getElementById("myBullet");
             var myBulletTx = myBullet.getContext("2d");
             var img = document.getElementById("tulip");
-            myBulletTx.clearRect(this.Bullet_X,this.Bullet_y, 5, 7);
+            myBulletTx.clearRect(0,0, 500, 500);
             switch (this.Tank_direction) {
                 case "top":
                     this.Bullet_X = this.Tank_X + (30 / 2);
@@ -141,20 +141,22 @@ define([], function () {
                     this.Bullet_y = this.Tank_y + 30;
                     myBulletTx.drawImage(img, 86, 95, 5, 7, this.Bullet_X, this.Bullet_y, 5, 7);
                     break;
-            }
+            };
+            this.bulletMove(myBulletTx);
 
         },
         /**
          * 子弹移动
          * @param ctx
          */
-        bulletMove: function (ctx) {
+        bulletMove: function (ctx, img) {
             var _X = this.Bullet_X,
                 _y = this.Bullet_y;
 
             switch (this.Tank_direction) {
                 case "top":
                     this.Bullet_y = this.Bullet_y - 5;
+                    myBulletTx.drawImage(img, 81, 95, 5, 7, this.Bullet_X, this.Bullet_y, 5, 7);
                     break;
                 case "left":
                     this.Bullet_X = this.Bullet_X - 5;
@@ -169,8 +171,8 @@ define([], function () {
             }
 
             var time = setInterval(function () {
-                ctx.clearRect(_X - 3, _y - 3, 6, 6);
-                this.drawBullet(this.Bullet_X, this.Bullet_y, ctx);
+                ctx.clearRect(0,0, 500, 500);
+                this.bulletMove(ctx);
             }.bind(this), 1000);
 
 
